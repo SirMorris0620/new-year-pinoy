@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manigong Bagong Taon 2026!</title>
+    <title>Happy New Year!</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;400;700&display=swap');
-
+        /* DLSU Theme & Fonts */
         body {
-            background-color: #8B0000; /* Lucky Red */
-            background-image: radial-gradient(#FFD700 15%, transparent 16%), radial-gradient(#FFD700 15%, transparent 16%);
+            background-color: #115740; /* DLSU Green */
+            background-image: radial-gradient(#ffffff 15%, transparent 16%), radial-gradient(#ffffff 15%, transparent 16%);
             background-size: 60px 60px;
             background-position: 0 0, 30px 30px;
             color: white;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Arial Narrow', Arial, sans-serif;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -22,49 +21,89 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            overflow-x: hidden; /* Prevent scrollbar from jumping */
+            overflow-x: hidden;
         }
 
-        /* FIX: Ensure content sits ON TOP of the confetti canvas */
         .container {
-            background: rgba(0, 0, 0, 0.85);
-            padding: 2rem;
-            border-radius: 20px;
-            border: 4px solid #FFD700;
-            box-shadow: 0 0 30px #FFD700;
+            background: rgba(0, 50, 30, 0.92); /* Dark Green Overlay */
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 3px solid #FFFFFF;
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.4);
             max-width: 90%;
             width: 400px;
             position: relative;
-            z-index: 100; /* This forces the card to be clickable */
+            z-index: 100;
         }
 
         h1 {
-            font-family: 'Lobster', cursive;
-            font-size: 3rem;
-            margin-bottom: 0.2rem;
-            color: #FFD700;
-            text-shadow: 3px 3px #000;
-            line-height: 1.1;
+            font-family: 'Arial Narrow', sans-serif;
+            font-weight: bold;
+            font-size: 3.5rem;
+            margin-bottom: 0;
+            color: #FFFFFF;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            line-height: 0.9;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         h2 {
+            font-family: 'Arial Narrow', sans-serif;
             font-size: 1.2rem;
-            color: #fff;
-            margin-top: 0;
+            color: #E0E0E0;
+            margin-top: 10px;
             margin-bottom: 20px;
-            font-weight: 300;
+            font-weight: normal;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .message-box {
             background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 8px;
             margin: 20px 0;
-            font-size: 1rem;
-            line-height: 1.5;
-            font-style: italic;
-            border-left: 4px solid #FFD700;
+            font-size: 1.1rem;
+            line-height: 1.4;
             text-align: left;
+            border-left: 5px solid #FFFFFF;
+        }
+
+        .bible-verse {
+            margin-top: 20px;
+            font-style: italic;
+            font-size: 0.95rem;
+            opacity: 0.9;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            padding-top: 15px;
+        }
+
+        .sign-off {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: right;
+            font-size: 1.1rem;
+        }
+
+        /* Music Toggle Button (Styled differently) */
+        .music-btn {
+            background: transparent;
+            border: 2px solid #FFFFFF;
+            color: #FFFFFF;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+        .music-btn:hover, .music-btn.playing {
+            background: #FFFFFF;
+            color: #115740;
         }
 
         .btn-group {
@@ -72,154 +111,221 @@
             gap: 10px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 20px;
+            margin-top: 25px;
             position: relative;
-            z-index: 101; /* Ensure buttons are definitely clickable */
+            z-index: 101;
         }
 
-        button {
-            background: #FFD700;
-            color: #8B0000;
+        button.action-btn {
+            background: #FFFFFF;
+            color: #115740;
             border: none;
-            padding: 12px 24px;
+            padding: 12px 25px;
+            font-family: 'Arial Narrow', sans-serif;
             font-size: 1.1rem;
             font-weight: bold;
-            border-radius: 50px;
+            border-radius: 5px;
             cursor: pointer;
             transition: transform 0.1s, background 0.3s;
-            box-shadow: 0 4px 0 #b8860b;
-            user-select: none; /* Prevents text selection on mobile taps */
+            box-shadow: 0 4px 0 #999;
+            text-transform: uppercase;
+            user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
 
-        button:active {
+        button.action-btn:active {
             transform: translateY(4px);
             box-shadow: none;
-            background: #fff;
+            background: #ccc;
         }
 
         .status-text {
             margin-top: 15px;
             font-size: 0.9rem;
-            color: #FFD700;
+            color: #ccc;
             min-height: 20px;
         }
 
-        /* Bounce Animation */
-        .bounce {
-            animation: bounce 0.5s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-30px); }
-        }
+        .bounce { animation: bounce 0.5s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
     </style>
 </head>
 <body>
 
     <div class="container" id="mainCard">
-        <h1>HAPPY<br>NEW YEAR!</h1>
-        <h2>Welcome 2026 🎉</h2>
+        <h1>Happy<br>New Year!</h1>
+        <h2>Welcome 2026</h2>
+
+        <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+            🎵 Play Music Box
+        </button>
 
         <div class="message-box">
-            "Sa taong lumipas, marami tayong kinaya. Ngayong 2026, ang wish ko para sa'yo ay hindi lang swerte, kundi lakas ng loob. May this year bring you the breaks you deserve and the happiness you've been waiting for. Padayon lang! Nandito lang ako for you."
+            <p style="margin-top:0">
+                You made it. Alam ko madaming <strong>silent battles</strong> ang napanalo mo this year na ikaw lang ang nakakaalam. I am so proud of you for that.
+            </p>
+            <p>
+                Remember, life is not a race. Walang timeline ang success, so don't pressure yourself. Push through lang! Your time will come exactly when it's meant to.
+            </p>
+            
+            <div class="bible-verse">
+                "For I know the plans I have for you,” declares the Lord, “plans to prosper you and not to harm you, plans to give you hope and a future."<br>
+                — <strong>Jeremiah 29:11</strong>
+            </div>
+
+            <div class="sign-off">
+                From Me with Love,<br>Morris!
+            </div>
         </div>
         
         <div class="btn-group">
-            <button onclick="playTorotot()">🎺 Torotot</button>
-            <button onclick="paputok()">🎆 Paputok</button>
-            <button onclick="magTalon()">🏃 Tumalon!</button>
+            <button class="action-btn" onclick="playTorotot()">🎺 Torotot</button>
+            <button class="action-btn" onclick="paputok()">🎆 Celebrate</button>
+            <button class="action-btn" onclick="magTalon()">🏃 Tumalon</button>
         </div>
 
-        <p class="status-text" id="statusMsg">Make some noise!</p>
+        <p class="status-text" id="statusMsg">Cheers to new beginnings!</p>
     </div>
 
     <script>
-        // 1. Torotot Sound (Fixed for better browser compatibility)
+        // --- 1. Music Box Logic (Auld Lang Syne) ---
+        let audioCtx = null;
+        let isPlaying = false;
+        let nextNoteTime = 0;
+        let noteIndex = 0;
+        let timerID = null;
+
+        // Frequencies for C Major
+        const N = { C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392.00, A4: 440.00, B4: 493.88, C5: 523.25, D5: 587.33 };
+        
+        // Melody: Note and Duration (1 = quarter note)
+        const melody = [
+            {f: N.C4, d: 1.5}, {f: N.F4, d: 1}, {f: N.E4, d: 0.5}, // Should auld ac-
+            {f: N.F4, d: 1.5}, {f: N.A4, d: 0.5}, {f: N.G4, d: 1}, {f: N.F4, d: 0.5}, {f: N.G4, d: 0.5}, // -quaintance be for-
+            {f: N.A4, d: 1.5}, {f: N.F4, d: 0.5}, {f: N.F4, d: 1}, {f: N.A4, d: 0.5}, // -got and ne-ver
+            {f: N.D5, d: 2},   {f: N.D5, d: 0.5}, // brought to mind? (D is high note)
+            {f: N.C5, d: 1.5}, {f: N.A4, d: 0.5}, {f: N.A4, d: 1}, {f: N.F4, d: 0.5}, // For auld lang
+            {f: N.G4, d: 1.5}, {f: N.F4, d: 0.5}, {f: N.G4, d: 1}, {f: N.A4, d: 0.5}, // syne my dear
+            {f: N.F4, d: 1.5}, {f: N.D4, d: 0.5}, {f: N.D4, d: 1}, {f: N.C4, d: 0.5}, // for auld lang
+            {f: N.F4, d: 3},   {f: null, d: 1} // syne... (pause)
+        ];
+
+        function playNote(freq, duration, time) {
+            if (!freq) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            // Sine wave sounds like a pure bell/music box
+            osc.type = 'sine'; 
+            osc.frequency.setValueAtTime(freq, time);
+            
+            // Envelope: Fast attack, slow decay (The "Pluck" sound)
+            gain.gain.setValueAtTime(0, time);
+            gain.gain.linearRampToValueAtTime(0.3, time + 0.05); // Attack
+            gain.gain.exponentialRampToValueAtTime(0.001, time + duration * 0.8); // Decay
+            
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(time);
+            osc.stop(time + duration);
+        }
+
+        function scheduler() {
+            while (nextNoteTime < audioCtx.currentTime + 0.1) {
+                const note = melody[noteIndex];
+                // Tempo: 0.6 seconds per beat (approx 100 BPM)
+                playNote(note.f, note.d * 0.8, nextNoteTime); 
+                nextNoteTime += note.d * 0.6; 
+                
+                noteIndex++;
+                if (noteIndex >= melody.length) noteIndex = 0; // Loop
+            }
+            timerID = window.setTimeout(scheduler, 25.0);
+        }
+
+        function toggleMusic() {
+            const btn = document.getElementById('musicBtn');
+            
+            if (isPlaying) {
+                // Stop
+                window.clearTimeout(timerID);
+                audioCtx.close();
+                audioCtx = null;
+                isPlaying = false;
+                btn.innerText = "🎵 Play Music Box";
+                btn.classList.remove("playing");
+            } else {
+                // Start
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+                nextNoteTime = audioCtx.currentTime;
+                noteIndex = 0;
+                isPlaying = true;
+                scheduler();
+                btn.innerText = "⏸ Stop Music";
+                btn.classList.add("playing");
+            }
+        }
+
+        // --- 2. Torotot ---
         function playTorotot() {
             try {
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                const ctx = new AudioContext();
-                
-                // Create sound
+                const AC = window.AudioContext || window.webkitAudioContext;
+                const ctx = new AC();
                 const osc = ctx.createOscillator();
-                const gainNode = ctx.createGain();
-                
+                const gain = ctx.createGain();
                 osc.type = 'sawtooth'; 
                 osc.frequency.setValueAtTime(200, ctx.currentTime);
                 osc.frequency.linearRampToValueAtTime(400, ctx.currentTime + 0.1);
                 osc.frequency.linearRampToValueAtTime(150, ctx.currentTime + 0.4);
-                
-                gainNode.gain.setValueAtTime(0.3, ctx.currentTime); // Lower volume slightly to avoid distortion
-                gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
-
-                osc.connect(gainNode);
-                gainNode.connect(ctx.destination);
+                gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
                 osc.start();
                 osc.stop(ctx.currentTime + 0.4);
-                
-                document.getElementById("statusMsg").innerText = "TOOOOOT TOOOOOT! 🎺";
-            } catch (e) {
-                // If audio fails (some iPhones in silent mode), fallback to text
-                document.getElementById("statusMsg").innerText = "*Honking Sounds* (Check Volume!)";
-            }
+                document.getElementById("statusMsg").innerText = "Happy New Year!!";
+            } catch (e) {}
         }
 
-        // 2. Paputok / Confetti (Fixed z-index issue)
+        // --- 3. Paputok (Confetti) ---
         function paputok() {
-            // Check if library loaded
-            if (typeof confetti === 'undefined') {
-                document.getElementById("statusMsg").innerText = "Loading confetti...";
-                return;
-            }
-
+            if (typeof confetti === 'undefined') return;
             var duration = 2 * 1000;
             var end = Date.now() + duration;
-
             (function frame() {
                 confetti({
                     particleCount: 5,
                     angle: 60,
                     spread: 55,
                     origin: { x: 0 },
-                    colors: ['#FF0000', '#FFD700', '#FFFFFF'],
-                    zIndex: 50 // Confetti behind buttons
+                    colors: ['#115740', '#FFFFFF', '#C0C0C0'], 
+                    zIndex: 50
                 });
                 confetti({
                     particleCount: 5,
                     angle: 120,
                     spread: 55,
                     origin: { x: 1 },
-                    colors: ['#FF0000', '#FFD700', '#FFFFFF'],
-                    zIndex: 50 // Confetti behind buttons
+                    colors: ['#115740', '#FFFFFF', '#C0C0C0'],
+                    zIndex: 50
                 });
-
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
+                if (Date.now() < end) requestAnimationFrame(frame);
             }());
-            document.getElementById("statusMsg").innerText = "BOOM! HAPPY 2026! 🎆";
+            document.getElementById("statusMsg").innerText = "God bless your 2026! ✨";
         }
 
-        // 3. Tumalon (Jump) Logic
+        // --- 4. Jump ---
         function magTalon() {
             const card = document.getElementById("mainCard");
-            
-            // Remove class first if it exists, to restart animation
             card.classList.remove("bounce");
-            
-            // Force browser reflow (magic trick to restart animation)
             void card.offsetWidth; 
-            
             card.classList.add("bounce");
-            document.getElementById("statusMsg").innerText = "TATAAS TAYO NGAYONG TAON! ⬆️";
-            
-            // Gold coins effect
+            document.getElementById("statusMsg").innerText = "Higher heights this year! ⬆️";
             if (typeof confetti !== 'undefined') {
                 confetti({
                     shapes: ['circle'],
-                    colors: ['#FFD700'],
+                    colors: ['#FFFFFF', '#FFD700'], 
                     scalar: 2,
                     particleCount: 30,
                     spread: 100,
@@ -227,14 +333,9 @@
                     zIndex: 50
                 });
             }
-
-            // Stop jumping after 2 seconds
-            setTimeout(() => {
-                card.classList.remove("bounce");
-            }, 2000);
+            setTimeout(() => { card.classList.remove("bounce"); }, 2000);
         }
 
-        // Auto-fire on load
         window.onload = function() {
             setTimeout(paputok, 500);
         };
