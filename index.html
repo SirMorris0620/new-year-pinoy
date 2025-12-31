@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manigong Bagong Taon 2026!</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@400;700&display=swap');
+
+        body {
+            background-color: #8B0000; /* Lucky Red */
+            background-image: radial-gradient(#FFD700 15%, transparent 16%), radial-gradient(#FFD700 15%, transparent 16%); /* Polka Dots */
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 4px solid #FFD700;
+            box-shadow: 0 0 30px #FFD700;
+            max-width: 90%;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 10px #FFD700; }
+            to { box-shadow: 0 0 40px #FFD700, 0 0 20px #FF4500; }
+        }
+
+        h1 {
+            font-family: 'Lobster', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            color: #FFD700;
+            text-shadow: 3px 3px #000;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        button {
+            background: #FFD700;
+            color: #8B0000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.1s;
+            box-shadow: 0 5px 0 #b8860b;
+        }
+
+        button:active {
+            transform: translateY(5px);
+            box-shadow: none;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            min-height: 1.5em;
+            color: #FFD700;
+            font-weight: bold;
+        }
+
+        /* Bounce Animation for Jumping */
+        .bounce {
+            animation: bounce 0.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-50px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainCard">
+        <h1>HAPPY<br>NEW YEAR!</h1>
+        <h2>Welcome 2026 🎉</h2>
+        
+        <div class="btn-group">
+            <button onclick="playTorotot()">🎺 Torotot</button>
+            <button onclick="paputok()">🎆 Paputok</button>
+            <button onclick="magTalon()">🏃 Tumalon!</button>
+        </div>
+
+        <p id="message">Pindutin para umingay!</p>
+    </div>
+
+    <script>
+        // 1. Auto-fire confetti on load because it is already New Year!
+        window.onload = function() {
+            paputok();
+            setTimeout(paputok, 1000); // Fire again after 1 second
+        };
+
+        // 2. Torotot Sound
+        function playTorotot() {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            const ctx = new AudioContext();
+            const osc = ctx.createOscillator();
+            const gainNode = ctx.createGain();
+            
+            osc.type = 'sawtooth'; 
+            osc.frequency.setValueAtTime(200, ctx.currentTime);
+            osc.frequency.linearRampToValueAtTime(400, ctx.currentTime + 0.1);
+            osc.frequency.linearRampToValueAtTime(150, ctx.currentTime + 0.5);
+            
+            gainNode.gain.setValueAtTime(0.5, ctx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+
+            osc.connect(gainNode);
+            gainNode.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.5);
+            
+            document.getElementById("message").innerText = "TOOOOOT TOOOOOT!";
+        }
+
+        // 3. Paputok / Confetti Effect
+        function paputok() {
+            var duration = 2 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#FF0000', '#FFD700', '#FFFFFF'] // Red, Gold, White
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#FF0
