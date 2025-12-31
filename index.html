@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy New Year!</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
@@ -22,27 +22,33 @@
             min-height: 100vh;
             margin: 0;
             overflow-x: hidden;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         .container {
-            background: rgba(0, 50, 30, 0.92); /* Dark Green Overlay */
-            padding: 2.5rem;
+            background: rgba(0, 50, 30, 0.94); /* Dark Green Overlay */
             border-radius: 15px;
             border: 3px solid #FFFFFF;
             box-shadow: 0 0 35px rgba(255, 255, 255, 0.4);
-            max-width: 90%;
-            width: 400px;
+            
+            /* DYNAMIC SIZING */
+            width: 100%;
+            max-width: 450px;
+            padding: 2rem;
+            
             position: relative;
             z-index: 100;
+            box-sizing: border-box;
         }
 
         h1 {
             font-family: 'Arial Narrow', sans-serif;
             font-weight: bold;
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 10vw, 4rem); 
             margin-bottom: 0;
             color: #FFFFFF;
-            letter-spacing: -2px;
+            letter-spacing: -1px;
             text-transform: uppercase;
             line-height: 0.9;
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
@@ -50,7 +56,7 @@
 
         h2 {
             font-family: 'Arial Narrow', sans-serif;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 4vw, 1.2rem); 
             color: #E0E0E0;
             margin-top: 10px;
             margin-bottom: 20px;
@@ -61,32 +67,32 @@
 
         .message-box {
             background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
-            margin: 20px 0;
-            font-size: 1.1rem;
+            margin: 15px 0;
+            font-size: 1.05rem;
             line-height: 1.4;
             text-align: left;
-            border-left: 5px solid #FFFFFF;
+            border-left: 4px solid #FFFFFF;
         }
 
         .bible-verse {
-            margin-top: 20px;
+            margin-top: 15px;
             font-style: italic;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             opacity: 0.9;
             border-top: 1px solid rgba(255,255,255,0.3);
-            padding-top: 15px;
+            padding-top: 10px;
         }
 
         .sign-off {
-            margin-top: 20px;
+            margin-top: 15px;
             font-weight: bold;
             text-align: right;
             font-size: 1.1rem;
         }
 
-        /* Music Toggle Button (Styled differently) */
+        /* Music Toggle Button */
         .music-btn {
             background: transparent;
             border: 2px solid #FFFFFF;
@@ -95,7 +101,7 @@
             border-radius: 20px;
             font-size: 0.9rem;
             cursor: pointer;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             display: inline-flex;
             align-items: center;
             gap: 5px;
@@ -110,8 +116,8 @@
             display: flex;
             gap: 10px;
             justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 25px;
+            flex-wrap: wrap; 
+            margin-top: 20px;
             position: relative;
             z-index: 101;
         }
@@ -120,15 +126,17 @@
             background: #FFFFFF;
             color: #115740;
             border: none;
-            padding: 12px 25px;
+            padding: 12px 20px;
             font-family: 'Arial Narrow', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
             border-radius: 5px;
             cursor: pointer;
             transition: transform 0.1s, background 0.3s;
             box-shadow: 0 4px 0 #999;
             text-transform: uppercase;
+            flex: 1 0 auto; 
+            min-width: 100px;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
@@ -148,6 +156,13 @@
 
         .bounce { animation: bounce 0.5s infinite; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+
+        @media (max-width: 400px) {
+            h1 { font-size: 2.8rem; }
+            .container { padding: 1.5rem; width: 95%; }
+            .message-box { font-size: 0.95rem; }
+            button.action-btn { padding: 10px 15px; font-size: 0.9rem; }
+        }
     </style>
 </head>
 <body>
@@ -162,10 +177,16 @@
 
         <div class="message-box">
             <p style="margin-top:0">
+                To my dearest friends, colleagues, and those I was lucky enough to meet this year—<strong>Thank you.</strong> 
+            </p>
+            <p>
+                Thank you for being here with me. Your presence made the journey lighter.
+            </p>
+            <p>
                 You made it. Alam ko madaming <strong>silent battles</strong> ang napanalo mo this year na ikaw lang ang nakakaalam. I am so proud of you for that.
             </p>
             <p>
-                Remember, life is not a race. Walang timeline ang success, so don't pressure yourself. Push through lang! Your time will come exactly when it's meant to.
+                Remember, life is not a race. Walang timeline ang success, so don't pressure yourself. <strong>Excited na ako for the new journey with you this 2026.</strong>
             </p>
             
             <div class="bible-verse">
@@ -188,42 +209,34 @@
     </div>
 
     <script>
-        // --- 1. Music Box Logic (Auld Lang Syne) ---
+        // --- Music Box Logic ---
         let audioCtx = null;
         let isPlaying = false;
         let nextNoteTime = 0;
         let noteIndex = 0;
         let timerID = null;
 
-        // Frequencies for C Major
         const N = { C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392.00, A4: 440.00, B4: 493.88, C5: 523.25, D5: 587.33 };
-        
-        // Melody: Note and Duration (1 = quarter note)
         const melody = [
-            {f: N.C4, d: 1.5}, {f: N.F4, d: 1}, {f: N.E4, d: 0.5}, // Should auld ac-
-            {f: N.F4, d: 1.5}, {f: N.A4, d: 0.5}, {f: N.G4, d: 1}, {f: N.F4, d: 0.5}, {f: N.G4, d: 0.5}, // -quaintance be for-
-            {f: N.A4, d: 1.5}, {f: N.F4, d: 0.5}, {f: N.F4, d: 1}, {f: N.A4, d: 0.5}, // -got and ne-ver
-            {f: N.D5, d: 2},   {f: N.D5, d: 0.5}, // brought to mind? (D is high note)
-            {f: N.C5, d: 1.5}, {f: N.A4, d: 0.5}, {f: N.A4, d: 1}, {f: N.F4, d: 0.5}, // For auld lang
-            {f: N.G4, d: 1.5}, {f: N.F4, d: 0.5}, {f: N.G4, d: 1}, {f: N.A4, d: 0.5}, // syne my dear
-            {f: N.F4, d: 1.5}, {f: N.D4, d: 0.5}, {f: N.D4, d: 1}, {f: N.C4, d: 0.5}, // for auld lang
-            {f: N.F4, d: 3},   {f: null, d: 1} // syne... (pause)
+            {f: N.C4, d: 1.5}, {f: N.F4, d: 1}, {f: N.E4, d: 0.5},
+            {f: N.F4, d: 1.5}, {f: N.A4, d: 0.5}, {f: N.G4, d: 1}, {f: N.F4, d: 0.5}, {f: N.G4, d: 0.5},
+            {f: N.A4, d: 1.5}, {f: N.F4, d: 0.5}, {f: N.F4, d: 1}, {f: N.A4, d: 0.5},
+            {f: N.D5, d: 2},   {f: N.D5, d: 0.5},
+            {f: N.C5, d: 1.5}, {f: N.A4, d: 0.5}, {f: N.A4, d: 1}, {f: N.F4, d: 0.5},
+            {f: N.G4, d: 1.5}, {f: N.F4, d: 0.5}, {f: N.G4, d: 1}, {f: N.A4, d: 0.5},
+            {f: N.F4, d: 1.5}, {f: N.D4, d: 0.5}, {f: N.D4, d: 1}, {f: N.C4, d: 0.5},
+            {f: N.F4, d: 3},   {f: null, d: 1}
         ];
 
         function playNote(freq, duration, time) {
             if (!freq) return;
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
-            
-            // Sine wave sounds like a pure bell/music box
             osc.type = 'sine'; 
             osc.frequency.setValueAtTime(freq, time);
-            
-            // Envelope: Fast attack, slow decay (The "Pluck" sound)
             gain.gain.setValueAtTime(0, time);
-            gain.gain.linearRampToValueAtTime(0.3, time + 0.05); // Attack
-            gain.gain.exponentialRampToValueAtTime(0.001, time + duration * 0.8); // Decay
-            
+            gain.gain.linearRampToValueAtTime(0.3, time + 0.05); 
+            gain.gain.exponentialRampToValueAtTime(0.001, time + duration * 0.8); 
             osc.connect(gain);
             gain.connect(audioCtx.destination);
             osc.start(time);
@@ -233,21 +246,17 @@
         function scheduler() {
             while (nextNoteTime < audioCtx.currentTime + 0.1) {
                 const note = melody[noteIndex];
-                // Tempo: 0.6 seconds per beat (approx 100 BPM)
                 playNote(note.f, note.d * 0.8, nextNoteTime); 
                 nextNoteTime += note.d * 0.6; 
-                
                 noteIndex++;
-                if (noteIndex >= melody.length) noteIndex = 0; // Loop
+                if (noteIndex >= melody.length) noteIndex = 0; 
             }
             timerID = window.setTimeout(scheduler, 25.0);
         }
 
         function toggleMusic() {
             const btn = document.getElementById('musicBtn');
-            
             if (isPlaying) {
-                // Stop
                 window.clearTimeout(timerID);
                 audioCtx.close();
                 audioCtx = null;
@@ -255,9 +264,8 @@
                 btn.innerText = "🎵 Play Music Box";
                 btn.classList.remove("playing");
             } else {
-                // Start
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                audioCtx = new AudioContext();
+                const AC = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AC();
                 nextNoteTime = audioCtx.currentTime;
                 noteIndex = 0;
                 isPlaying = true;
@@ -267,7 +275,7 @@
             }
         }
 
-        // --- 2. Torotot ---
+        // --- Torotot ---
         function playTorotot() {
             try {
                 const AC = window.AudioContext || window.webkitAudioContext;
@@ -288,7 +296,7 @@
             } catch (e) {}
         }
 
-        // --- 3. Paputok (Confetti) ---
+        // --- Paputok ---
         function paputok() {
             if (typeof confetti === 'undefined') return;
             var duration = 2 * 1000;
@@ -315,7 +323,7 @@
             document.getElementById("statusMsg").innerText = "God bless your 2026! ✨";
         }
 
-        // --- 4. Jump ---
+        // --- Jump ---
         function magTalon() {
             const card = document.getElementById("mainCard");
             card.classList.remove("bounce");
